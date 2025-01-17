@@ -1,5 +1,6 @@
 ---
 - name: Create a test directory on Debian
+  hosts: all
   become: yes
   tasks:
     - name: Ensure the /test directory exists
