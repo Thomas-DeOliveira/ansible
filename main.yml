@@ -1,14 +1,19 @@
 ---
-- name: Create a test directory on Debian
+- name: Install and start Nginx
   hosts: all
   become: yes
   tasks:
-    - name: Ensure the /test directory exists
-      file:
-        path: /test
-        state: directory
-        mode: '0755'
-    - name: Remove "foo" package
-      ansible.builtin.apt:
-        name: nano
-        state: absent
+    - name: Update apt package index
+      apt:
+        update_cache: yes
+    
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start and enable Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
